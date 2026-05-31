@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>बोधिपुरुष</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #e3d5c7;
+  --ink: #3f2d22;
+  --gold: #b8924a;
+  --crimson: #8d2f2f;
+  --indigo: #343c7a;
+  --card-bg: rgba(255,255,255,0.45);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Tiro Devanagari Hindi', serif;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ─── INTRO ─────────────────────────────────── */
+#intro {
+  position: fixed; inset: 0; z-index: 100;
+  background: var(--paper); overflow: hidden;
+  transition: opacity 1.6s ease;
+}
+.atm { position: absolute; transition: opacity 1.8s ease; }
+.cover-bg { inset: -15%; background: url('book-cover.png') center/cover no-repeat; filter: blur(28px); opacity: .28; transform: scale(1.2); }
+.crimson  { width: 500px; height: 900px; left: 18%; top: 10%; background: linear-gradient(180deg,#8d2f2f,#b34a3a,#7a251d); opacity: .35; filter: blur(70px); }
+.indigo   { width: 700px; height: 700px; right: -100px; bottom: -50px; border-radius: 50%; background: radial-gradient(circle,#5159a5,#343c7a,#24274f); opacity: .45; filter: blur(80px); }
+.earth    { width: 120%; height: 260px; bottom: -80px; left: -10%; background: linear-gradient(180deg,#5f3f2b,#7d573c,#3d291d); opacity: .45; filter: blur(60px); }
+.lotus    { width: 300px; height: 300px; left: 50%; top: 28%; transform: translate(-50%,-50%); border-radius: 50%; background: radial-gradient(circle,#fff,rgba(255,245,220,.95),rgba(255,220,180,.55),transparent 75%); filter: blur(25px); }
+
+/* centre stage word */
+#stage-word {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%,-50%) scale(1);
+  font-size: clamp(38px,8vw,108px);
+  font-weight: 400; white-space: nowrap;
+  color: #f5ede3;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  /* soft depth + wide diffused warm glow */
+  text-shadow:
+    1px 1px 3px rgba(42,26,14,.32),
+    2px 3px 6px rgba(42,26,14,.22),
+    4px 5px 11px rgba(50,32,15,.15),
+    7px 8px 18px rgba(58,37,16,.10),
+    11px 13px 28px rgba(30,10,0,.07),
+    18px 20px 45px rgba(20,8,0,.04),
+    0 0 30px rgba(210,145,50,.16),
+    0 0 70px rgba(185,110,25,.08),
+    0 0 130px rgba(140,70,15,.04);
+}
+
+/* cloud words — placed by JS */
+.cloud-word {
+  position: absolute;
+  font-family: 'Tiro Devanagari Hindi', serif;
+  color: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+/* blast pulse on the stage word */
+@keyframes blast-in {
+  0%   {
+    opacity: 0;
+    transform: translate(-50%,-50%) scale(0.72);
+    text-shadow:
+     1px 1px 3px rgba(42,26,14,.16),
+     2px 3px 6px rgba(42,26,14,.10),
+     4px 5px 11px rgba(50,32,15,.07),
+	 7px 8px 18px rgba(58,37,16,.05),
+      0 0 20px rgba(210,145,50,.07),
+      0 0 50px rgba(185,110,25,.04);
+  }
+  35%  {
+    opacity: 1;
+    transform: translate(-50%,-50%) scale(1);
+    text-shadow:
+      1px 1px 3px rgba(42,26,14,.38),
+      2px 3px 6px rgba(42,26,14,.26),
+      4px 5px 11px rgba(50,32,15,.18),
+      7px 8px 18px rgba(58,37,16,.12),
+      11px 13px 28px rgba(30,10,0,.08),
+      18px 20px 45px rgba(20,8,0,.05),
+      0 0 32px rgba(210,145,50,.32),
+      0 0 75px rgba(185,110,25,.16),
+      0 0 140px rgba(140,70,15,.08);
+  }
+  65%  {
+    opacity: .65;
+    transform: translate(-50%,-50%) scale(.5);
+    text-shadow:
+      1px 1px 3px rgba(42,26,14,.32),
+      2px 3px 6px rgba(42,26,14,.22),
+      4px 5px 11px rgba(50,32,15,.15),
+      7px 8px 18px rgba(58,37,16,.10),
+      11px 13px 28px rgba(30,10,0,.07),
+      18px 20px 45px rgba(20,8,0,.04),
+      0 0 30px rgba(210,145,50,.16),
+      0 0 70px rgba(185,110,25,.08),
+      0 0 130px rgba(140,70,15,.04);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%,-50%) scale(.5);
+  }
+}
+
+#cover { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: 1.4s cubic-bezier(.4,0,.2,1); }
+#cover.show { opacity: 1; }
+#cover img { width: min(340px,40vw); }
+
+/* ─── NAV ─── DESKTOP ────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  padding: 18px 40px;
+  background: #eceae5;
+  display: flex; justify-content: space-between; align-items: center;
+  transform: translateY(-100%); opacity: 0;
+  transition: transform 1s, opacity 1s;
+}
+.nav.show { transform: translateY(0); opacity: 1; }
+.nav-brand { font-size: 15px; font-weight: 700; letter-spacing: .18em; color: var(--ink); opacity: .7; }
+.nav-links { display: flex; gap: 28px; font-size: 15px; }
+.nav-links a { color: var(--ink); text-decoration: none; opacity: .75; transition: opacity .2s; }
+.nav-links a:hover { opacity: 1; }
+
+/* ─── HAMBURGER (mobile only) ──────────────── */
+.hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 4px;
+  background: none; border: none;
+}
+.hamburger span {
+  display: block; width: 24px; height: 2px;
+  background: var(--ink); border-radius: 2px;
+  transition: transform .3s, opacity .3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* mobile drawer */
+.mobile-menu {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 49;
+  background: var(--paper);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 36px;
+  transform: translateX(100%);
+  transition: transform .4s cubic-bezier(.77,0,.175,1);
+  pointer-events: none;
+}
+.mobile-menu.open { transform: translateX(0); pointer-events: all; }
+.mobile-menu a {
+  font-size: 28px; color: var(--ink); text-decoration: none;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .3s, transform .3s;
+}
+.mobile-menu.open a {
+  opacity: 1; transform: translateY(0);
+}
+.mobile-menu.open a:nth-child(1) { transition-delay: .12s; }
+.mobile-menu.open a:nth-child(2) { transition-delay: .20s; }
+.mobile-menu.open a:nth-child(3) { transition-delay: .28s; }
+.mobile-menu.open a:nth-child(4) { transition-delay: .36s; }
+.mobile-menu.open a:nth-child(5) { transition-delay: .44s; }
+.mobile-menu-accent {
+  position: absolute; right: -80px; top: 20%;
+  width: 350px; height: 350px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(141,47,47,.3), transparent 70%);
+  pointer-events: none;
+}
+
+/* ─── SITE ───────────────────────────────────── */
+#site { opacity: 0; transition: 1s; }
+#site.show { opacity: 1; }
+
+/* ─── HERO ───────────────────────────────────── */
+.hero {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 64px;
+}
+.hero-left {
+  display: flex; align-items: center; justify-content: center;
+  padding: 60px 48px;
+  border-right: 0.5px solid rgba(63,45,34,.15);
+}
+.hero-cover {
+  width: min(280px,38vw);
+  box-shadow: 0 28px 70px rgba(0,0,0,.28), 0 8px 24px rgba(0,0,0,.15);
+}
+.hero-right {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 60px 56px 60px 52px;
+}
+.synopsis-label {
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 22px; opacity: .85;
+}
+.synopsis-rule {
+  width: 36px; height: 1.5px;
+  background: linear-gradient(90deg, var(--crimson), var(--gold));
+  margin-bottom: 28px; border: none;
+}
+.synopsis-text {
+  font-size: clamp(14px,1.1vw,16px);
+  line-height: 2.1;
+  color: var(--ink);
+  opacity: .82;
+}
+.scroll-ind {
+  margin-top: 40px; display: flex; flex-direction: column;
+  align-items: flex-start; gap: 8px; font-size: 12px; opacity: .4;
+  letter-spacing: .08em;
+}
+.scroll-line { width: 1px; height: 32px; background: linear-gradient(to bottom, transparent, var(--gold)); }
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 56px; }
+  .hero-left { padding: 40px 24px 32px; border-right: none; border-bottom: 0.5px solid rgba(63,45,34,.15); }
+  .hero-cover { width: min(220px, 60vw); }
+  .hero-right { padding: 36px 24px 48px; }
+  .synopsis-text { font-size: 15px; line-height: 2.0; }
+  .scroll-ind { align-items: center; margin-top: 32px; }
+}
+
+/* ═══════════════════════════════════════════════
+   DESKTOP SCRUBBER
+═══════════════════════════════════════════════ */
+.scrubber-desktop {
+  padding: 90px 40px 100px;
+  background: #efe5da;
+}
+.scrubber-desktop h2 {
+  text-align: center; margin-bottom: 64px;
+  font-size: clamp(22px,3vw,34px); letter-spacing: .05em;
+}
+
+.track-wrap {
+  max-width: 1060px; margin: 0 auto;
+  position: relative; padding: 0 8px;
+}
+
+/* the line */
+.track-line {
+  height: 2px;
+  background: #ccb9a6;
+  position: relative;
+  margin: 0 8px;
+}
+.track-fill {
+  position: absolute; left: 0; top: 0; height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--crimson), var(--gold), var(--indigo));
+  transition: width .45s cubic-bezier(.4,0,.2,1);
+}
+
+/* nodes row */
+.nodes-row {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  top: -9px;
+  padding: 0 0;
+}
+.node-btn {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 10px; cursor: pointer; position: relative;
+  background: none; border: none;
+  padding: 0 4px 0;
+}
+.node-dot {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: #fff; border: 2px solid var(--gold);
+  transition: transform .25s, background .25s, box-shadow .25s;
+}
+.node-btn:hover .node-dot,
+.node-btn.active .node-dot {
+  background: var(--gold);
+  transform: scale(1.5);
+  box-shadow: 0 0 22px rgba(184,146,74,.5);
+}
+.node-btn.visited .node-dot { background: #d9c08c; }
+.node-label {
+  font-size: 12px; color: var(--ink); opacity: .55;
+  transition: opacity .25s;
+  white-space: nowrap;
+  margin-top: 6px;
+  letter-spacing: .03em;
+}
+.node-btn:hover .node-label,
+.node-btn.active .node-label { opacity: 1; font-weight: 600; }
+
+/* tooltip above node */
+.node-tooltip {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: var(--paper);
+  padding: 6px 12px; border-radius: 8px;
+  font-size: 13px; white-space: nowrap;
+  pointer-events: none;
+  opacity: 0; transform: translateX(-50%) translateY(6px);
+  transition: opacity .2s, transform .2s;
+}
+.node-tooltip::after {
+  content: ''; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--ink);
+}
+.node-btn:hover .node-tooltip {
+  opacity: 1; transform: translateX(-50%) translateY(0);
+}
+
+/* detail card – desktop */
+.detail-card {
+  max-width: 680px; margin: 60px auto 0;
+  background: var(--card-bg);
+  border-radius: 18px; padding: 36px 40px;
+  text-align: center;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(184,146,74,.2);
+  transition: opacity .3s;
+}
+.detail-chapter-num {
+  font-size: 13px; letter-spacing: .12em; opacity: .55;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.detail-chapter-name { font-size: 28px; margin-bottom: 12px; }
+.detail-chapter-desc { font-size: 16px; opacity: .7; line-height: 1.7; }
+
+/* ═══════════════════════════════════════════════
+   MOBILE SWIPE CAROUSEL
+═══════════════════════════════════════════════ */
+.scrubber-mobile {
+  display: none;
+  padding: 60px 0 80px;
+  background: #efe5da;
+  overflow: hidden;
+}
+.scrubber-mobile h2 {
+  text-align: center; margin-bottom: 40px;
+  font-size: 24px; padding: 0 20px;
+}
+
+/* progress dots */
+.progress-dots {
+  display: flex; justify-content: center; gap: 7px;
+  margin-bottom: 28px;
+}
+.progress-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #ccb9a6; transition: background .3s, transform .3s;
+}
+.progress-dot.active { background: var(--gold); transform: scale(1.4); }
+.progress-dot.visited { background: #d9c08c; }
+
+/* swipe track */
+.swipe-track-outer {
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.swipe-track-outer:active { cursor: grabbing; }
+.swipe-track {
+  display: flex;
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+  will-change: transform;
+}
+.swipe-card {
+  flex: 0 0 calc(100vw - 64px);
+  margin: 0 12px;
+  background: var(--card-bg);
+  border-radius: 18px;
+  padding: 36px 28px;
+  text-align: center;
+  border: 1px solid rgba(184,146,74,.2);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 32px rgba(63,45,34,.08);
+}
+.swipe-card-num { font-size: 12px; letter-spacing: .14em; opacity: .5; margin-bottom: 8px; }
+.swipe-card-name { font-size: 26px; margin-bottom: 14px; }
+.swipe-card-desc { font-size: 15px; opacity: .7; line-height: 1.75; }
+.swipe-card-index { margin-top: 20px; font-size: 12px; opacity: .4; }
+
+/* swipe hint */
+.swipe-hint {
+  text-align: center; margin-top: 22px;
+  font-size: 13px; opacity: .45;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.swipe-arrow { font-size: 18px; }
+
+/* ─── SHOW/HIDE per viewport ─────────────────── */
+@media (min-width: 769px) {
+  .scrubber-mobile { display: none !important; }
+  .hamburger { display: none !important; }
+  .mobile-menu { display: none !important; }
+}
+@media (max-width: 768px) {
+  .scrubber-desktop { display: none !important; }
+  .scrubber-mobile { display: block !important; }
+  .nav-links { display: none !important; }
+  .hamburger { display: flex !important; }
+  .nav { padding: 14px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── INTRO ─── -->
+<div id="intro">
+  <div class="atm cover-bg"></div>
+  <div class="atm crimson"></div>
+  <div class="atm indigo"></div>
+  <div class="atm earth"></div>
+  <div class="atm lotus"></div>
+  <div id="stage-word"></div>
+  <div id="cover"><img src="book-cover.png" alt="बोधिपुरुष"></div>
+</div>
+
+<!-- ─── MOBILE DRAWER ─── -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-accent"></div>
+  <a href="#">About</a>
+  <a href="#">Books</a>
+  <a href="#">Poetry</a>
+  <a href="#">Photographs</a>
+  <a href="#">Contact</a>
+</div>
+
+<!-- ─── NAV ─── -->
+<nav class="nav" id="nav">
+  <div class="nav-brand">DL</div>
+  <div class="nav-links">
+    <a href="#">About</a>
+    <a href="#">Books</a>
+    <a href="#">Poetry</a>
+    <a href="#">Photographs</a>
+    <a href="#">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── MAIN SITE ─── -->
+<div id="site">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-left">
+      <img class="hero-cover" src="book-cover.png" alt="बोधिपुरुष">
+    </div>
+    <div class="hero-right">
+      <div class="synopsis-label">संक्षेप</div>
+      <hr class="synopsis-rule">
+      <p class="synopsis-text">छठी शताब्दी ईसा-पूर्व की पृष्ठभूमि पर आधारित "बोधिपुरुष: माया, छल और ज्ञानोदय" एक ऐसी दार्शनिक कृति है, जो पाठक को उस निर्धन कृषक से साक्षात्कार कराती है जिसने सिद्धार्थ के बुद्धत्व के पथ को आलोकित किया। यह उपन्यास केवल एक ऐतिहासिक कथा ही नहीं, अपितु भारतीय दर्शन और मानवीय संवेदनाओं का समावेश भी है। एक मनुष्य के अहंकार, भय, क्रोध, वासना, प्रेम, करुणा और छल को छूता हुआ यह उपन्यास पाठक को विविध भारतीय दार्शनिक परंपराओं से परिचित कराता है।</p>
+      <div class="scroll-ind">
+        <div class="scroll-line"></div>
+        <span>अध्याय यात्रा</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ DESKTOP SCRUBBER ════ -->
+  <section class="scrubber-desktop">
+    <h2>अध्याय यात्रा</h2>
+    <div class="track-wrap">
+      <div class="track-line"><div class="track-fill" id="desktopFill"></div></div>
+      <div class="nodes-row" id="desktopNodes"></div>
+    </div>
+    <div class="detail-card" id="desktopCard">
+      <div class="detail-chapter-num" id="dNum"></div>
+      <div class="detail-chapter-name" id="dName"></div>
+      <div class="detail-chapter-desc" id="dDesc"></div>
+    </div>
+  </section>
+
+  <!-- ════ MOBILE CAROUSEL ════ -->
+  <section class="scrubber-mobile">
+    <h2>अध्याय यात्रा</h2>
+    <div class="progress-dots" id="mobileDots"></div>
+    <div class="swipe-track-outer" id="swipeOuter">
+      <div class="swipe-track" id="swipeTrack"></div>
+    </div>
+    <div class="swipe-hint">
+      <span class="swipe-arrow">←</span> स्वाइप करें <span class="swipe-arrow">→</span>
+    </div>
+  </section>
+
+</div><!-- /#site -->
+
+<script>
+/* ─── DATA ─── */
+const chapters = [
+  ["१","नंदा","एक किसान का परिचय"],
+  ["२","अंतर्द्वंद","भीतर उठती हलचल"],
+  ["३","सिद्धार्थ","एक राजकुमार की छाया"],
+  ["४","मन्दक","छल और लालसा"],
+  ["५","संन्यास","त्याग का पहला क्षण"],
+  ["६","माया","संसार की माया"],
+  ["७","छल","विश्वासघात"],
+  ["८","हरिकेशबल","रहस्यमय साधु"],
+  ["९","अंकुरण","ज्ञान का अंकुर"],
+  ["१०","ज्ञानोदय","उत्तर मिलता है"],
+  ["११","महामारी","मृत्यु का सामना"],
+  ["१२","चांडाल","समाज की सीमाएँ"],
+  ["१३","ज्ञान","नई शुरुआत"]
+];
+
+/* ─── INTRO ANIMATION ─── */
+const words = ["अहंकार","विरह","दमन","विक्षिप्तता","भक्ति","माया","लोभ","वासना","छल","स्वप्न","वैराग्य","मृत्यु","बोध","मुक्ति"];
+const wait = m => new Promise(r => setTimeout(r, m));
+
+// Sizes for cloud words — vary by "weight" of word
+const cloudSizes = [13,15,17,14,18,13,16,14,15,17,16,18,15,22];
+
+// Safe zones to avoid centre (where cover will appear)
+function safeCloudPos() {
+  const W = window.innerWidth, H = window.innerHeight;
+  const cx = W / 2, cy = H / 2;
+  const avoid = { x: cx - W*0.22, y: cy - H*0.28, w: W*0.44, h: H*0.56 };
+  let x, y, tries = 0;
+  do {
+    x = 0.06*W + Math.random() * 0.88*W;
+    y = 0.06*H + Math.random() * 0.88*H;
+    tries++;
+  } while (
+    tries < 40 &&
+    x > avoid.x && x < avoid.x + avoid.w &&
+    y > avoid.y && y < avoid.y + avoid.h
+  );
+  return { x, y };
+}
+
+// Assign each word a unique float keyframe
+function injectFloatKeyframe(id, dx, dy) {
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes float-${id} {
+      0%   { transform: translate(0px, 0px) rotate(${-1.5 + Math.random()*3}deg); }
+      33%  { transform: translate(${dx*0.6}px, ${dy*0.4}px) rotate(${-1+Math.random()*2}deg); }
+      66%  { transform: translate(${dx*-0.4}px, ${dy*0.7}px) rotate(${Math.random()*2}deg); }
+      100% { transform: translate(0px, 0px) rotate(${-1.5+Math.random()*3}deg); }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+const stageEl = document.getElementById('stage-word');
+const cloudEls = []; // track placed cloud words
+
+async function runIntro() {
+  for (let i = 0; i < words.length; i++) {
+    // 1 — flash word centre-stage with blast animation
+    stageEl.textContent = words[i];
+    stageEl.style.animation = 'none';
+    stageEl.style.opacity = '0';
+    stageEl.style.transform = 'translate(-50%,-50%) scale(1)';
+    // force reflow so animation restarts cleanly
+    void stageEl.offsetWidth;
+    stageEl.style.transition = 'none';
+    stageEl.style.animation = 'blast-in 2s cubic-bezier(.2,0,.4,1) forwards';
+
+    await wait(i === words.length - 1 ? 350 : 650);
+
+    // 2 — shrink and fly to cloud position
+    const pos = safeCloudPos();
+    const dx = 4 + Math.random() * 7;
+    const dy = 3 + Math.random() * 5;
+    const floatId = `w${i}`;
+    injectFloatKeyframe(floatId, dx, dy);
+
+    // create the cloud element
+    const el = document.createElement('div');
+    el.className = 'cloud-word';
+    el.textContent = words[i];
+    el.style.cssText = `
+      left: ${pos.x}px; top: ${pos.y}px;
+      font-size: ${cloudSizes[i]}px;
+      opacity: 0;
+      transform: translate(-50%,-50%);
+    `;
+    document.getElementById('intro').appendChild(el);
+    cloudEls.push(el);
+
+    // fade stage word out and cloud word in simultaneously
+    stageEl.style.animation = 'none';
+stageEl.style.transition = 'opacity 0.22s ease, transform 0.28s cubic-bezier(.4,0,.6,1)';
+    stageEl.style.opacity = '0';
+stageEl.style.transform = 'translate(-50%,-50%) scale(0.38)';
+
+    // slight delay then materialise cloud word
+    setTimeout(() => {
+      el.style.transition = 'opacity 0.35s ease';
+      el.style.opacity = String(0.10 + Math.random() * .3);
+      // start floating after it appears
+      setTimeout(() => {
+        const dur = 5 + Math.random() * 120;
+        const delay = Math.random() * 12;
+        el.style.animation = `float-${floatId} ${dur}s ${delay}s ease-in-out infinite`;
+      }, 400);
+    }, 80);
+
+    await wait(60); // brief gap before next word flashes
+  }
+
+  // — all words placed — show cover over the cloud —
+  await wait(300);
+  document.getElementById('cover').classList.add('show');
+  setTimeout(() => document.getElementById('nav').classList.add('show'), 500);
+  setTimeout(() => {
+    document.querySelectorAll('.atm').forEach(e => e.style.opacity = '0');
+    document.getElementById('site').classList.add('show');
+  }, 1800);
+  setTimeout(() => {
+    const intro = document.getElementById('intro');
+    intro.style.opacity = '0';
+    setTimeout(() => intro.style.display = 'none', 1600);
+  }, 3200);
+}
+runIntro();
+
+/* ─── HAMBURGER ─── */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  })
+);
+
+/* ─── DESKTOP SCRUBBER ─── */
+const nodesRow  = document.getElementById('desktopNodes');
+const fill      = document.getElementById('desktopFill');
+
+chapters.forEach((c, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'node-btn';
+  btn.innerHTML = `
+    <div class="node-tooltip">अध्याय ${c[0]}: ${c[1]}</div>
+    <div class="node-dot"></div>
+    <div class="node-label">${c[1]}</div>
+  `;
+  btn.addEventListener('click', () => showDesktop(i));
+  nodesRow.appendChild(btn);
+});
+
+function showDesktop(i) {
+  document.querySelectorAll('.node-btn').forEach((b, idx) => {
+    b.classList.remove('active','visited');
+    if (idx < i) b.classList.add('visited');
+  });
+  document.querySelectorAll('.node-btn')[i].classList.add('active');
+  fill.style.width = (i / (chapters.length - 1)) * 100 + '%';
+  document.getElementById('dNum').textContent  = 'अध्याय ' + chapters[i][0];
+  document.getElementById('dName').textContent = chapters[i][1];
+  document.getElementById('dDesc').textContent = chapters[i][2];
+}
+showDesktop(0);
+
+/* ─── MOBILE SWIPE CAROUSEL ─── */
+const track  = document.getElementById('swipeTrack');
+const dots   = document.getElementById('mobileDots');
+const outer  = document.getElementById('swipeOuter');
+let current  = 0;
+let startX   = 0;
+let isDragging = false;
+let dragDelta  = 0;
+
+// build cards & dots
+chapters.forEach((c, i) => {
+  // card
+  const card = document.createElement('div');
+  card.className = 'swipe-card';
+  card.innerHTML = `
+    <div class="swipe-card-num">अध्याय ${c[0]}</div>
+    <div class="swipe-card-name">${c[1]}</div>
+    <div class="swipe-card-desc">${c[2]}</div>
+    <div class="swipe-card-index">${i + 1} / ${chapters.length}</div>
+  `;
+  track.appendChild(card);
+
+  // dot
+  const dot = document.createElement('div');
+  dot.className = 'progress-dot';
+  dot.addEventListener('click', () => goTo(i));
+  dots.appendChild(dot);
+});
+
+function getCardWidth() {
+  const card = track.querySelector('.swipe-card');
+  if (!card) return 0;
+  return card.offsetWidth + 24; // card width + 2 * margin 12px
+}
+
+function goTo(i, animated = true) {
+  current = Math.max(0, Math.min(chapters.length - 1, i));
+  if (!animated) track.style.transition = 'none';
+  else           track.style.transition = 'transform .4s cubic-bezier(.4,0,.2,1)';
+  const offset = -(current * getCardWidth()) + (window.innerWidth / 2 - getCardWidth() / 2 + 12);
+  track.style.transform = `translateX(${offset}px)`;
+  updateDots();
+}
+
+function updateDots() {
+  document.querySelectorAll('.progress-dot').forEach((d, idx) => {
+    d.classList.remove('active','visited');
+    if (idx === current) d.classList.add('active');
+    else if (idx < current) d.classList.add('visited');
+  });
+}
+
+// Touch events
+outer.addEventListener('touchstart', e => {
+  startX = e.touches[0].clientX;
+  isDragging = true;
+  track.style.transition = 'none';
+}, { passive: true });
+
+outer.addEventListener('touchmove', e => {
+  if (!isDragging) return;
+  dragDelta = e.touches[0].clientX - startX;
+  const base = -(current * getCardWidth()) + (window.innerWidth / 2 - getCardWidth() / 2 + 12);
+  track.style.transform = `translateX(${base + dragDelta}px)`;
+}, { passive: true });
+
+outer.addEventListener('touchend', () => {
+  isDragging = false;
+  if (dragDelta < -50)      goTo(current + 1);
+  else if (dragDelta > 50)  goTo(current - 1);
+  else                      goTo(current);
+  dragDelta = 0;
+});
+
+// Mouse drag
+outer.addEventListener('mousedown', e => {
+  startX = e.clientX; isDragging = true;
+  track.style.transition = 'none';
+  e.preventDefault();
+});
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  dragDelta = e.clientX - startX;
+  const base = -(current * getCardWidth()) + (window.innerWidth / 2 - getCardWidth() / 2 + 12);
+  track.style.transform = `translateX(${base + dragDelta}px)`;
+});
+window.addEventListener('mouseup', () => {
+  if (!isDragging) return;
+  isDragging = false;
+  if (dragDelta < -50)     goTo(current + 1);
+  else if (dragDelta > 50) goTo(current - 1);
+  else                     goTo(current);
+  dragDelta = 0;
+});
+
+// init carousel
+window.addEventListener('load', () => goTo(0, false));
+window.addEventListener('resize', () => goTo(current, false));
+</script>
+</body>
+</html>
