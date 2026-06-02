@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Books — Deepak Lohumi</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/common.css">
+<style>
+body { overflow-x: hidden; }
+
+.book-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 58px);
+}
+.book-visual {
+  background: radial-gradient(circle at 30% 30%, rgba(141,47,47,.14), transparent 55%), var(--paper3);
+  border-right: 0.5px solid var(--rule);
+  display: grid;
+  place-items: center;
+  padding: 48px;
+}
+.book-visual img {
+  width: min(360px, 78%);
+  box-shadow: 0 28px 70px rgba(0,0,0,.28), 0 8px 24px rgba(0,0,0,.15);
+}
+
+.book-content {
+  padding: 54px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  background: var(--paper4);
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #999;
+}
+.book-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(38px, 5vw, 62px);
+  font-weight: 900;
+  line-height: .95;
+  color: var(--ink2);
+}
+.book-rule {
+  width: 42px;
+  border: none;
+  border-top: 1.5px solid var(--ink2);
+}
+.book-meta {
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #777;
+}
+.book-copy {
+  font-size: 14px;
+  line-height: 1.9;
+  color: #4d4137;
+  max-width: 560px;
+}
+.book-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn {
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  border: 0.5px solid var(--rule);
+  padding: 10px 16px;
+  border-radius: 4px;
+}
+.btn.primary {
+  background: var(--ink2);
+  color: #fff;
+  border-color: var(--ink2);
+}
+.btn.secondary {
+  color: var(--ink2);
+  background: transparent;
+}
+
+.quote-strip {
+  border-top: 0.5px solid var(--rule);
+  border-bottom: 0.5px solid var(--rule);
+  background: var(--paper3);
+  padding: 28px 48px;
+}
+.quote-strip p {
+  font-family: "Tiro Devanagari Hindi", serif;
+  font-size: 18px;
+  line-height: 1.9;
+  color: #5a4a3f;
+}
+
+@media (max-width: 880px) {
+  .book-hero { grid-template-columns: 1fr; }
+  .book-visual { border-right: none; border-bottom: 0.5px solid var(--rule); padding: 34px 24px; }
+  .book-content { padding: 34px 22px 40px; }
+  .quote-strip { padding: 22px; }
+}
+</style>
+</head>
+<body data-nav-active="books">
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-deco"></div>
+</div>
+
+<nav class="nav">
+  <a class="nav-logo nav-logo-link" href="index_.html">DL</a>
+  <div class="nav-links"></div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section class="book-hero">
+  <div class="book-visual">
+    <img src="book-cover.png" alt="Book Cover — Bodhipurush">
+  </div>
+  <div class="book-content">
+    <div class="eyebrow">featured novel</div>
+    <h1 class="book-title">बोधिपुरुष<br>Maya, Chhal aur Gyanodaya</h1>
+    <hr class="book-rule">
+    <div class="book-meta">historical-philosophical fiction · set in 6th century BCE India</div>
+    <p class="book-copy">
+      A literary journey through ego, fear, compassion, and awakening. Set against the world of Siddhartha,
+      this novel explores how ordinary lives illuminate extraordinary spiritual history.
+    </p>
+    <div class="book-actions">
+      <a class="btn primary" href="contact.html">rights & enquiries</a>
+      <a class="btn secondary" href="about.html">about the author</a>
+    </div>
+  </div>
+</section>
+
+<section class="quote-strip">
+  <p>
+    उद्देश्य सीमित कर देता है किंतु संभावना असीम की ओर ले जाती है।
+  </p>
+</section>
+
+<script src="assets/js/nav-links.js" defer></script>
+<script src="assets/js/nav.js" defer></script>
+</body>
+</html>

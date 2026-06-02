@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poetry — Deepak Lohumi</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/common.css">
+<style>
+:root {
+  --paper:#e3d5c7; --paper2:#efe5da; --paper3:#eceae5; --paper4:#f5f4f0;
+  --ink:#3f2d22; --ink2:#1a1a1a; --muted:#888; --rule:rgba(63,45,34,.18);
+  --gold:#b8924a; --crimson:#8d2f2f; --dark:#1e1e1c; --dark2:#2c2c2a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--paper4);color:var(--ink2);overflow-x:hidden;}
+
+/* HERO */
+.hero{padding:64px 48px 56px;background:var(--paper);border-bottom:0.5px solid var(--rule);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;}
+.hero-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(44px,6vw,72px);font-weight:900;color:var(--ink2);line-height:.9;letter-spacing:-.02em;margin-bottom:24px;}
+.hero-rule{width:36px;height:1.5px;background:linear-gradient(90deg,var(--crimson),var(--gold));border:none;margin-bottom:22px;}
+.hero-sub{font-size:14px;color:var(--muted);line-height:1.7;max-width:420px;}
+.hero-right-quote{font-family:'Tiro Devanagari Hindi',serif;font-size:18px;color:var(--ink);line-height:2;opacity:.65;border-left:2px solid var(--gold);padding-left:20px;align-self:center;}
+
+/* POEM GRID */
+.poems-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.poem-card{padding:52px 48px;border-bottom:0.5px solid var(--rule);border-right:0.5px solid var(--rule);transition:background .3s;}
+.poem-card:nth-child(even){border-right:none;}
+.poem-card:hover{background:var(--paper2);}
+.poem-number{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;opacity:.8;}
+.poem-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ink2);margin-bottom:6px;}
+.poem-lang{font-size:11px;color:var(--muted);letter-spacing:.06em;margin-bottom:24px;}
+.poem-rule{width:28px;height:1px;background:linear-gradient(90deg,var(--crimson),var(--gold));border:none;margin-bottom:24px;}
+.poem-body{font-family:'Tiro Devanagari Hindi',serif;font-size:15px;color:var(--ink);line-height:2.2;white-space:pre-line;}
+.poem-body.roman{font-family:'Playfair Display',serif;font-style:italic;font-size:14px;line-height:2.0;color:#444;}
+.poem-footer{margin-top:28px;padding-top:18px;border-top:0.5px solid var(--rule);font-size:11px;color:#bbb;letter-spacing:.06em;text-transform:uppercase;}
+
+/* FULL WIDTH poem (3rd poem — political, deserves full canvas) */
+.poem-card.full{grid-column:1/-1;border-right:none;background:var(--dark);transition:none;}
+.poem-card.full:hover{background:var(--dark);}
+.poem-card.full .poem-number{color:var(--gold);opacity:.6;}
+.poem-card.full .poem-title{color:#e3d5c7;}
+.poem-card.full .poem-lang{color:#555;}
+.poem-card.full .poem-rule{background:linear-gradient(90deg,var(--crimson),var(--gold));}
+.poem-card.full .poem-body{color:#c8c4bc;}
+.poem-card.full .poem-footer{border-top-color:#333;color:#444;}
+
+/* TWO-COLUMN poem body for poem 3 on desktop */
+.poem-body-cols{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+.poem-stanza{margin-bottom:28px;}
+.poem-stanza-break{grid-column:1/-1;border-top:0.5px solid #2a2a28;margin:8px 0 24px;}
+
+/* CTA */
+.cta{padding:26px 48px;display:flex;align-items:center;justify-content:space-between;background:var(--paper3);border-top:0.5px solid var(--rule);}
+.cta-text{font-size:13px;color:#999;}
+.cta-btn{font-size:13px;color:var(--ink2);border:0.5px solid rgba(63,45,34,.35);background:transparent;padding:9px 22px;border-radius:4px;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.02em;transition:background .2s;}
+.cta-btn:hover{background:var(--paper2);}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;padding:40px 20px 36px;gap:24px;}
+  .hero-right-quote{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:20px;font-size:16px;}
+  .poems-grid{grid-template-columns:1fr;}
+  .poem-card{padding:36px 20px;border-right:none;}
+  .poem-card.full{padding:36px 20px;}
+  .poem-body-cols{grid-template-columns:1fr;gap:0;}
+  .cta{padding:22px 20px;flex-direction:column;gap:14px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-deco"></div>
+  <a href="about.html">about</a>
+  <a href="#">books</a>
+  <a href="poetry.html" class="active">poetry</a>
+  <a href="photographs.html">photographs</a>
+  <a href="contact.html">contact</a>
+</div>
+
+<nav class="nav">
+  <a class="nav-logo nav-logo-link" href="index_.html">DL</a>
+  <div class="nav-links">
+    <a href="about.html">about</a>
+    <a href="#">books</a>
+    <a href="poetry.html" class="active">poetry</a>
+    <a href="photographs.html">photographs</a>
+    <a href="contact.html">contact</a>
+  </div>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow">कविताएँ</div>
+    <div class="hero-title">Poetry</div>
+    <hr class="hero-rule">
+    <p class="hero-sub">Words that wander between Hindi and Urdu, between the mountain and the mela — finding silence in the space between.</p>
+  </div>
+  <div class="hero-right-quote">
+    नूतन स्वप्न नयनों में बुनकर,<br>
+    स्मरण करें मधुकर की गुंजन
+  </div>
+</div>
+
+<!-- POEMS -->
+<div class="poems-grid">
+
+  <!-- Poem 1 -->
+  <div class="poem-card">
+    <div class="poem-number">कविता एक</div>
+    <div class="poem-title">इस दिवस को विदा करें</div>
+    <div class="poem-lang">Hindi · हिन्दी</div>
+    <hr class="poem-rule">
+    <div class="poem-body">नूतन स्वप्न नयनों में बुनकर,
+स्मरण करें मधुकर की गुंजन,
+नये दिवाकर की आशा में,
+इस दिवस को विदा करें।
+
+सुखद स्मृतियाँ, तेरे मिलन की,
+चपल चंद्र की चाँदनी में,
+नये प्रेम की परिभाषा में,
+इस दिवस को विदा करें।
+
+उन्मुक्त पवन की सुगंध से,
+चंचल मन में उठती हिलोरें,
+पुनः मिलन की अभिलाषा में,
+इस दिवस को विदा करें।</div>
+    <div class="poem-footer">दीपक लोहुमी</div>
+  </div>
+
+  <!-- Poem 2 -->
+  <div class="poem-card">
+    <div class="poem-number">कविता दो</div>
+    <div class="poem-title">नये दिवस को नमन</div>
+    <div class="poem-lang">Hindi · हिन्दी</div>
+    <hr class="poem-rule">
+    <div class="poem-body">मधुर लालिमा की बेला से
+नयी किरण की नयी सुबह को
+हर्षित अभिलाषी जिज्ञासा से
+नये दिवस को नमन करें।</div>
+    <div class="poem-footer">दीपक लोहुमी</div>
+  </div>
+
+  <!-- Poem 3 — full width, dark, political -->
+  <div class="poem-card full">
+    <div class="poem-number">कविता तीन</div>
+    <div class="poem-title">आ माधो आ</div>
+    <div class="poem-lang">Urdu / Hindi · उर्दू / हिन्दी</div>
+    <hr class="poem-rule">
+    <div class="poem-body-cols">
+      <div>
+        <div class="poem-stanza">
+<div class="poem-body">आ माधो आ;
+बात बताऊँ एक तुझे मैं
+तू पैदा भी नहीं हुआ था
+'इन लोगों' ने ज़ुल्म किये थे
+हम पर कितने
+
+आ माधो आ;
+
+भोंक दे भाला
+'उस औरत' के पेट के अन्दर
+कोख में 'उम्मीद' पलती होगी
+जिसका नाम ख़यालों में था
+
+ख़ून का इक फ़व्वारा उठे
+मींच लियो तू अपनी आँखें
+रहम कहीं दिल से न गुज़रे
+भाले का तो धर्म नहीं है।</div>
+        </div>
+        <div class="poem-stanza">
+<div class="poem-body">
+  <p>आ असलम आ;
+    बात बताऊँ एक तुझे मैं
+    तू पैदा भी नहीं हुआ था
+    'इन लोगों' ने ज़ुल्म किये थे
+    हम पर कितने
+    
+    आ असलम आ;
+    फोड़ दे इस बम को इन पर
+    'उस बच्ची' को उड़ा दे इकदम
+    आँखों में पलता, इक ख़्वाब था शायद
+    जिसका ज़िक्र ख़यालों में था
+    
+    चीथड़े उड़े जब 'उस बच्ची के'
+    मींच लियो तू अपनी आँखें
+    रहम कहीं दिल से न गुज़रे
+    इस बम का तो धर्म नहीं है।</p>
+  <p>आ असलम आ; आ माधो आ <br>
+    छोड़ दे पल्ला उस मोमिन का; उस पण्डित का <br>
+    उस औरत के पेट में पलती उस बच्ची को उस ज़ोया को; <br>
+    उस राधा को;<br>
+<br>
+    आज़ाद करें 'उस बेड़ी' से <br>
+    उम्मीदों से पलने दें; उन ख़्वाबों को; उन ज़िक्रों को <br>
+    आज़ाद करें उस माधो को; उस असलम को <br>
+    'इन नफ़रत' की ज़ंजीरों से<br>
+<br>
+    नफ़रत की बर्बादी तक जंग रहेगी, <br>
+    जंग रहेगी इंसानों की आज़ादी तक जंग रहेगी, जंग रहेगी&nbsp;</p>
+</div>
+        </div>
+      </div>
+      <div>
+        <div class="poem-stanza">
+<div class="poem-body">&nbsp;मत पूछ मेरा हाल क्या है दोस्त;
+  अमा छोड़ कभी और फ़रियाद करते हैं
+ 
+  ज़रा देख कलिसे में शराब है के नहीं
+  वर्ना तेरे आँखों की बात करते हैं 
+  
+  दर-ओ-दीवार थक गये हैं मेरी सुन सुन के
+  अब तो हम सिर्फ़ ख़ामोशियों से बात करते हैं
+  
+  कर देते हैं जिबह जज़्बातों में 
+कुछ लोग यहाँ मोहब्बत की बात करते हैं 
+
+सिहर मत कोई ज़ख़्म नहीं देंगे तुझे 
+हम तो सिर्फ़ बात और बात करते हैं तो 
+
+क्या हुआ जो टूट गयी निसबतें तुझसे 
+हम आज भी तेरी मुलाक़ातों की बात करते हैं</div>
+        </div>
+      </div>
+    </div>
+    <div class="poem-footer">दीपक लोहुमी</div>
+  </div>
+
+  <!-- Poem 4 -->
+  <div class="poem-card" style="grid-column:1/-1;border-right:none;">
+    <div class="poem-number">कविता चार</div>
+    <div class="poem-title">मत पूछ मेरा हाल</div>
+    <div class="poem-lang">Urdu / Hindi · उर्दू / हिन्दी</div>
+    <hr class="poem-rule">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;">
+      <div class="poem-body">मत पूछ मेरा हाल क्या है दोस्त
+अमा छोड़ कभी और फ़रियाद करते हैं
+ज़रा देख कलिसे में शराब है के नहीं
+वर्ना तेरे आँखों की बात करते हैं
+
+दर-ओ-दीवार थक गये हैं मेरी सुन सुन के
+अब तो हम सिर्फ़ ख़ामोशियों से बात करते हैं</div>
+      <div class="poem-body">कर देते हैं जिबह जज़्बातों में
+कुछ लोग यहाँ मोहब्बत की बात करते हैं
+सिहर मत कोई ज़ख़्म नहीं देंगे तुझे
+हम तो सिर्फ़ बात और बात करते हैं
+
+तो क्या हुआ जो टूट गयी निसबतें तुझसे
+हम आज भी तेरी मुलाक़ातों की बात करते हैं</div>
+    </div>
+    <div class="poem-footer">दीपक लोहुमी</div>
+  </div>
+
+</div><!-- /poems-grid -->
+
+<div class="cta">
+  <span class="cta-text">More poems coming soon — check back or write to Deepak.</span>
+  <a href="contact.html"><button class="cta-btn">get in touch ↗</button></a>
+</div>
+
+<script src="assets/js/nav-links.js" defer></script>
+<script src="assets/js/nav.js" defer></script>
+<script src="assets/js/poetry.js" defer></script>
+</body>
+</html>

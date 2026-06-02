@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photographs — Deepak Lohumi</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/common.css">
+</head>
+<body>
+
+<!-- Mobile drawer -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-deco"></div>
+  <a href="about.html">about</a>
+  <a href="#">books</a>
+  <a href="poetry.html">poetry</a>
+  <a href="#" class="active">photographs</a>
+  <a href="contact.html">contact</a>
+</div>
+
+<nav class="nav">
+  <a class="nav-logo nav-logo-link" href="index_.html">DL</a>
+  <div class="nav-links">
+    <a href="about.html">about</a>
+    <a href="#">books</a>
+    <a href="poetry.html">poetry</a>
+    <a href="#" class="active">photographs</a>
+    <a href="contact.html">contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="hero-label">photographs</div>
+      <div class="hero-name">Through<br>the Lens</div>
+      <hr class="hero-rule">
+      <div class="hero-tagline">mountains &nbsp;·&nbsp; people &nbsp;·&nbsp; light</div>
+    </div>
+    <div class="hero-quote">
+      "A photograph is a pause<br>in the river of forgetting —<br>a moment that refused to leave."
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-thumb"><img src="photographs/IMG_8782 copy.jpg" alt="" loading="lazy"><span class="hero-thumb-label">Binsar, Kumaon</span></div>
+    <div class="hero-thumb"><img src="photographs/SNAKE CHARMER.jpg" alt="" loading="lazy"><span class="hero-thumb-label">Almora, 2022</span></div>
+    <div class="hero-thumb"><img src="photographs/DSCN0223 copy.jpg" alt="" loading="lazy"><span class="hero-thumb-label">Rishikesh</span></div>
+    <div class="hero-thumb"><img src="photographs/IMG_9387.JPG" alt="" loading="lazy"><span class="hero-thumb-label">Munsiyari, 2019</span></div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">series</span>
+  <button class="filter-btn active" data-cat="all">All</button>
+  <button class="filter-btn" data-cat="mountains">Mountains</button>
+  <button class="filter-btn" data-cat="people">People</button>
+  <button class="filter-btn" data-cat="village">Village</button>
+  <button class="filter-btn" data-cat="divine">Divine</button>
+</div>
+
+<!-- DESKTOP CAROUSEL -->
+<div class="carousel-section">
+  <div class="carousel-header">
+    <div class="section-label" id="carouselLabel">all photographs</div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <span class="carousel-count" id="carouselCount"></span>
+      <div class="carousel-nav">
+        <button class="carousel-btn" id="btnPrev">&#8592;</button>
+        <button class="carousel-btn" id="btnNext">&#8594;</button>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-track-wrap">
+    <div class="carousel-track" id="carouselTrack"></div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+</div>
+
+<!-- MOBILE GRID -->
+<div class="mobile-grid-section">
+  <div class="mobile-grid-header">
+    <div class="section-label">all photographs</div>
+  </div>
+  <div class="mobile-grid-inner" id="mobileGrid"></div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <span class="cta-text">Interested in prints or licensing?</span>
+  <button class="cta-btn">write to Deepak ↗</button>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose">✕</button>
+  <img id="lbImg" src="" alt="" loading="lazy">
+  <div class="lightbox-meta">
+    <div class="lightbox-title" id="lbTitle"></div>
+    <div class="lightbox-loc" id="lbLoc"></div>
+  </div>
+  <div class="lightbox-arrows">
+    <button class="lb-btn" id="lbPrev">&#8592;</button>
+    <button class="lb-btn" id="lbNext">&#8594;</button>
+  </div>
+  <div class="lb-swipe-hint">swipe to navigate</div>
+</div>
+
+<script src="assets/js/nav-links.js" defer></script>
+<script src="assets/js/nav.js" defer></script>
+<script src="assets/js/photographs.js" defer></script>
+</body>
+</html>

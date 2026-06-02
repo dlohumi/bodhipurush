@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Deepak Lohumi</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/common.css">
+<style>
+:root {
+  --paper:#e3d5c7; --paper2:#efe5da; --paper3:#eceae5; --paper4:#f5f4f0;
+  --ink:#3f2d22; --ink2:#1a1a1a; --muted:#888; --rule:rgba(63,45,34,.18);
+  --gold:#b8924a; --crimson:#8d2f2f; --dark:#1e1e1c; --dark2:#2c2c2a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--paper4);color:var(--ink2);overflow-x:hidden;}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:420px;}
+.hero-left{padding:48px;display:flex;flex-direction:column;justify-content:space-between;border-right:0.5px solid var(--rule);background:var(--paper4);}
+.hero-label{font-size:11px;color:#aaa;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px;}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(44px,6vw,68px);font-weight:900;color:var(--ink2);line-height:.92;letter-spacing:-.02em;}
+.hero-rule{border:none;border-top:1.5px solid var(--ink2);margin:22px 0 12px;}
+.hero-tagline{font-size:13px;color:var(--muted);letter-spacing:.06em;}
+.hero-quote{font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:#666;line-height:1.75;border-left:2px solid var(--gold);padding-left:16px;}
+.hero-right{background:var(--dark2);display:flex;flex-direction:row;align-items:stretch;}
+.portrait-box{flex:0 0 55%;overflow:hidden;}
+.portrait-box img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;}
+.hero-right-text{flex:1;padding:32px 24px;display:flex;flex-direction:column;justify-content:center;gap:16px;border-left:0.5px solid #3a3a38;}
+.hero-right-text p{font-family:'Tiro Devanagari Hindi',serif;font-size:17px;color:#c8c4bc;line-height:1.9;}
+
+/* BODY */
+.body-section{display:grid;grid-template-columns:1fr 1fr;border-top:0.5px solid var(--rule);}
+.bio-col{padding:40px 48px;border-right:0.5px solid var(--rule);}
+.section-label{font-size:11px;color:#aaa;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;}
+.bio-para{font-size:14px;color:#555;line-height:1.85;margin-bottom:16px;}
+.stats-col{padding:40px 48px;}
+.stat-row{display:flex;align-items:baseline;gap:16px;padding-bottom:22px;border-bottom:0.5px solid rgba(63,45,34,.12);margin-bottom:22px;}
+.stat-row:last-child{border-bottom:none;margin-bottom:0;}
+.stat-num{font-family:'Playfair Display',serif;font-size:40px;font-weight:900;color:var(--ink2);line-height:1;}
+.stat-desc{font-size:13px;color:var(--muted);line-height:1.55;}
+
+/* INFLUENCES */
+.influences{padding:32px 48px;border-top:0.5px solid var(--rule);background:var(--paper2);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.chip{font-size:12px;color:#666;border:0.5px solid var(--rule);padding:5px 14px;border-radius:20px;background:var(--paper3);letter-spacing:.02em;}
+
+/* AWARDS */
+.awards{padding:36px 48px;border-top:0.5px solid var(--rule);background:var(--dark);}
+.awards .section-label{color:#555;}
+.award-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px;}
+.award-item{padding:16px 18px;border:0.5px solid #333;border-radius:6px;}
+.award-title{font-size:13px;font-weight:500;color:#d8d5d0;margin-bottom:4px;}
+.award-year{font-size:12px;color:#666;}
+
+/* CTA */
+.cta{padding:26px 48px;display:flex;align-items:center;justify-content:space-between;background:var(--paper3);border-top:0.5px solid var(--rule);}
+.cta-text{font-size:13px;color:#999;}
+.cta-btn{font-size:13px;color:var(--ink2);border:0.5px solid rgba(63,45,34,.35);background:transparent;padding:9px 22px;border-radius:4px;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.02em;transition:background .2s;}
+.cta-btn:hover{background:var(--paper2);}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;min-height:auto;}
+  .hero-left{padding:32px 20px;border-right:none;border-bottom:0.5px solid var(--rule);gap:24px;}
+  .hero-right{flex-direction:column;min-height:280px;}
+  .portrait-box{flex:0 0 200px;}
+  .hero-right-text{border-left:none;border-top:0.5px solid #3a3a38;padding:22px 20px;}
+  .hero-right-text p{font-size:15px;}
+  .body-section{grid-template-columns:1fr;}
+  .bio-col{padding:28px 20px;border-right:none;border-bottom:0.5px solid var(--rule);}
+  .stats-col{padding:28px 20px;}
+  .stat-num{font-size:34px;}
+  .influences{padding:24px 20px;}
+  .awards{padding:24px 20px;}
+  .award-grid{grid-template-columns:1fr;}
+  .cta{padding:22px 20px;flex-direction:column;gap:14px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-deco"></div>
+  <a href="about.html" class="active">about</a>
+  <a href="#">books</a>
+  <a href="poetry.html">poetry</a>
+  <a href="photographs.html">photographs</a>
+  <a href="contact.html">contact</a>
+</div>
+
+<nav class="nav">
+  <a class="nav-logo nav-logo-link" href="index_.html">DL</a>
+  <div class="nav-links">
+    <a href="about.html" class="active">about</a>
+    <a href="#">books</a>
+    <a href="poetry.html">poetry</a>
+    <a href="photographs.html">photographs</a>
+    <a href="contact.html">contact</a>
+  </div>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="hero-label">about</div>
+      <div class="hero-name">Deepak<br>Lohumi</div>
+      <hr class="hero-rule">
+      <div class="hero-tagline">author &nbsp;·&nbsp; storyteller&nbsp; ·&nbsp; storyteller&nbsp;·&nbsp; photographer</div>
+    </div>
+    <div class="hero-quote">"I do not write to be understood.<br>I write so that I may understand<br>what it means to be alive."</div>
+  </div>
+  <div class="hero-right">
+    <div class="portrait-box"><img src="deepak1.jpg" alt="Deepak Lohumi"></div>
+    <div class="hero-right-text">
+      <p>"बोधिपुरुष न तो संघ गढ़ते हैं और न ही संप्रदायों की परिधि रचते हैं"</p>
+    </div>
+  </div>
+</div>
+
+<div class="body-section">
+  <div class="bio-col">
+    <div class="section-label">biography</div>
+    <p class="bio-para">Deepak Lohumi was born in the hills of Kumaon, where the Himalayan silence first taught him to listen before he learned to speak.&nbsp;</p>
+    <p class="bio-para">He is a full time writer and a part time consultant with a background in Product Management and Learning Technology, and a strong passion for the arts. After leading teams and managing complex programs, he now writes full-time, inspired by Indian history, philosophy, and his travels.<br>
+      <br>
+      His writing sits at the intersection of Indic philosophy, religion, and the everyday life of ordinary people.&nbsp; </p>
+<p class="bio-para">Deepak brings his experiences in theatre, storytelling, poetry and photography into his writing. He explores both ancient heritage and modern life, always looking at the world through a philosophical lens and a deep curiosity about people’s stories.</p>
+    <p class="bio-para">He is currently working on a short film screenplay and a new fictional novel set against the backdrop of recent events in Delhi, the United Kingdom, and Uttarakhand.</p>
+  </div>
+  <div class="stats-col">
+    <div class="section-label">from the book - Bodhipurush&nbsp;&nbsp;</div>
+    <div class="stat-row"><div class="stat-num">&nbsp;</div><div class="stat-desc"><em>Purpose imposes limits, whereas possibility leads toward the infinite.<br>
+    </em> <br>
+उद्देश्य सीमित कर देता है किंतु संभावना असीम की ओर&nbsp;ले जाती है। <br>
+        <br>
+    </div></div>
+    <div class="stat-row"><div class="stat-num">&nbsp;</div><div class="stat-desc"><i>In the glow of the lamps descended a skeletal figure, so emaciated that every rib could be counted. The entire machinery of Kapilavastu lived in fear of this frail, middle-aged man. The nation's greatest enemy was disappearing into the subterranean chamber. </i><br>
+        <br>
+दियों के प्रकाश में हड्डियों का एक ढाँचा उतर रहा था, जिसकी एक-एक पसली गिनी जा सकती थी। कपिलवस्तु का सारा तंत्र इस निर्बल, अधेड़ व्यक्ति से भयग्रस्त था। राष्ट्र का सबसे बड़ा शत्रु भूमिगत कक्ष में विलीन हो रहा था।&nbsp;</div></div>
+    <div class="stat-row"><div class="stat-num">&nbsp;</div><div class="stat-desc"><i>The passage of time is peculiar; it slows in moments of waiting and hastens in moments of joy.</i><br>
+        <br>
+    काल की गति भी विचित्र है; प्रतीक्षा में मंद हो जाती है और आनंद में तीव्र।&nbsp;</div></div>
+    <div class="stat-row"><div class="stat-num">&nbsp;</div><div class="stat-desc"><em>Perhaps God is a creation of nature untouched by ego, and thus able to witness this grand dance of existence.</em><br>
+<br>
+    कदाचित् ईश्वर प्रकृति की एक ऐसी रचना हो जिस पर अहंकार हावी ना हो और वह प्रकृति के इस नृत्य को देख सकता हो।</div></div>
+  </div>
+</div>
+
+<div class="influences">
+  <div class="section-label">influences &amp; themes</div>
+  <div class="chips">
+    <span class="chip">Indic philosophy</span><span class="chip">Kabir</span><span class="chip">Nanak</span>
+    <span class="chip">rural India</span><span class="chip">liberation &amp; dukkha</span><span class="chip">Kumaoni folk tradition</span>
+    <span class="chip">the ordinary &amp; the sacred</span><span class="chip">Premchand</span><span class="chip">silence as language</span>
+  </div>
+</div>
+
+<div class="awards">
+  
+</div>
+
+<div class="cta">
+  <span class="cta-text">Want to reach out?</span>
+  <a href="contact.html"><button class="cta-btn">write to Deepak ↗</button></a>
+</div>
+
+<script src="assets/js/nav-links.js" defer></script>
+<script src="assets/js/nav.js" defer></script>
+</body>
+</html>

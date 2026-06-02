@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Deepak Lohumi</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/common.css">
+<style>
+:root {
+  --paper:#e3d5c7; --paper2:#efe5da; --paper3:#eceae5; --paper4:#f5f4f0;
+  --ink:#3f2d22; --ink2:#1a1a1a; --muted:#888; --rule:rgba(63,45,34,.18);
+  --gold:#b8924a; --crimson:#8d2f2f; --dark:#1e1e1c; --dark2:#2c2c2a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--paper4);color:var(--ink2);overflow-x:hidden;}
+
+/* LAYOUT */
+.page-grid{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 57px);}
+
+/* LEFT — dark atmospheric panel */
+.contact-left{
+  background:var(--dark);
+  padding:64px 56px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  border-right:0.5px solid #2a2420;
+}
+.contact-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:20px;}
+.contact-title{font-family:'Playfair Display',serif;font-size:clamp(44px,5vw,64px);font-weight:900;color:#e3d5c7;line-height:.9;letter-spacing:-.02em;margin-bottom:28px;}
+.contact-rule{width:36px;height:1.5px;background:linear-gradient(90deg,var(--crimson),var(--gold));border:none;margin-bottom:28px;}
+.contact-intro{font-size:14px;color:#888;line-height:1.85;max-width:380px;margin-bottom:48px;}
+.contact-details{display:flex;flex-direction:column;gap:24px;}
+.contact-item{}
+.contact-item-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#444;margin-bottom:6px;}
+.contact-item-value{font-size:14px;color:#c8c4bc;}
+.contact-item-value a{color:var(--gold);text-decoration:none;transition:opacity .2s;}
+.contact-item-value a:hover{opacity:.7;}
+.contact-quote{font-family:'Tiro Devanagari Hindi',serif;font-size:16px;color:#3a3025;line-height:2;opacity:.5;margin-top:auto;padding-top:40px;}
+
+/* RIGHT — form */
+.contact-right{
+  background:var(--paper4);
+  padding:64px 56px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.form-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--ink2);margin-bottom:8px;}
+.form-sub{font-size:13px;color:var(--muted);margin-bottom:36px;line-height:1.6;}
+
+.form-field{margin-bottom:24px;}
+.form-label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:8px;}
+.form-input,.form-textarea{
+  width:100%;
+  background:var(--paper3);
+  border:0.5px solid var(--rule);
+  border-radius:4px;
+  padding:12px 16px;
+  font-size:14px;font-family:'Inter',sans-serif;color:var(--ink2);
+  outline:none;
+  transition:border-color .2s,background .2s;
+}
+.form-input:focus,.form-textarea:focus{border-color:var(--gold);background:var(--paper2);}
+.form-textarea{height:140px;resize:vertical;line-height:1.7;}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+
+.form-subject-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+.subject-chip{
+  font-size:12px;color:#666;border:0.5px solid var(--rule);
+  padding:5px 14px;border-radius:20px;background:var(--paper3);
+  cursor:pointer;transition:all .2s;letter-spacing:.02em;user-select:none;
+}
+.subject-chip:hover,.subject-chip.selected{background:var(--ink2);color:#fff;border-color:var(--ink2);}
+.subject-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:10px;}
+
+.form-btn{
+  width:100%;padding:14px;
+  background:var(--ink2);color:#fff;
+  border:none;border-radius:4px;
+  font-size:14px;font-family:'Inter',sans-serif;letter-spacing:.04em;
+  cursor:pointer;transition:background .2s;
+  margin-top:8px;
+}
+.form-btn:hover{background:var(--crimson);}
+
+/* success state */
+.form-success{display:none;text-align:center;padding:48px 20px;}
+.form-success-icon{font-size:36px;margin-bottom:16px;}
+.form-success-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--ink2);margin-bottom:10px;}
+.form-success-sub{font-size:14px;color:var(--muted);line-height:1.7;}
+
+/* MOBILE */
+@media(max-width:768px){
+  .page-grid{grid-template-columns:1fr;}
+  .contact-left{padding:40px 20px;min-height:auto;}
+  .contact-quote{display:none;}
+  .contact-right{padding:40px 20px;}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-deco"></div>
+  <a href="about.html">about</a>
+  <a href="#">books</a>
+  <a href="poetry.html">poetry</a>
+  <a href="photographs.html">photographs</a>
+  <a href="contact.html" class="active">contact</a>
+</div>
+
+<nav class="nav">
+  <a class="nav-logo nav-logo-link" href="index_.html">DL</a>
+  <div class="nav-links">
+    <a href="about.html">about</a>
+    <a href="#">books</a>
+    <a href="poetry.html">poetry</a>
+    <a href="photographs.html">photographs</a>
+    <a href="contact.html" class="active">contact</a>
+  </div>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-grid">
+
+  <!-- LEFT -->
+  <div class="contact-left">
+    <div>
+      <div class="contact-eyebrow">contact</div>
+      <div class="contact-title">Write<br>to Me</div>
+      <hr class="contact-rule">
+      <p class="contact-intro">Whether you wish to speak of books, translations, readings, or simply the silence between mountains — I welcome letters of all kinds.</p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-item-label">email</div>
+          <div class="contact-item-value"><a href="mailto:deepak@deepaklohumi.com">deepak@deepaklohumi.com</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-label">based in</div>
+          <div class="contact-item-value">Delhi &amp; the Kumaon Himalayas</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-label">for publishing &amp; rights</div>
+          <div class="contact-item-value"><a href="mailto:rights@deepaklohumi.com">rights@deepaklohumi.com</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-quote">
+      हम आज भी तेरी मुलाक़ातों<br>की बात करते हैं
+    </div>
+  </div>
+
+  <!-- RIGHT — FORM -->
+  <div class="contact-right">
+    <div id="formWrap">
+      <div class="form-title">Send a message</div>
+      <p class="form-sub">I read every letter. Response may take a few days.</p>
+
+      <div class="subject-label">I am writing about</div>
+      <div class="form-subject-chips">
+        <span class="subject-chip" onclick="selectChip(this)">Books &amp; writing</span>
+        <span class="subject-chip" onclick="selectChip(this)">Translation</span>
+        <span class="subject-chip" onclick="selectChip(this)">Readings &amp; events</span>
+        <span class="subject-chip" onclick="selectChip(this)">Photography prints</span>
+        <span class="subject-chip" onclick="selectChip(this)">Something else</span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label" for="fname">First name</label>
+          <input class="form-input" id="fname" type="text" placeholder="Arjun">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="lname">Last name</label>
+          <input class="form-input" id="lname" type="text" placeholder="Sharma">
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" id="email" type="email" placeholder="you@example.com">
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="message">Message</label>
+        <textarea class="form-textarea" id="message" placeholder="Dear Deepakji…"></textarea>
+      </div>
+
+      <button class="form-btn" onclick="submitForm()">Send message →</button>
+    </div>
+
+    <div class="form-success" id="formSuccess">
+      <div class="form-success-icon">✦</div>
+      <div class="form-success-title">Message received</div>
+      <p class="form-success-sub">Thank you for writing. Deepak will respond when the mountains allow.</p>
+    </div>
+  </div>
+
+</div>
+
+<script src="assets/js/nav-links.js" defer></script>
+<script src="assets/js/nav.js" defer></script>
+<script src="assets/js/contact.js" defer></script>
+</body>
+</html>
